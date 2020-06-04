@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -26,6 +25,9 @@ public class DownloadThread extends Thread {
         this.callback = callback;
     }
 
+    /**
+     * @noinspection BusyWait
+     */
     public void run() {
         String url = "http://res01.uhcraft.fr/uhcraft/update/" + version + "/UHCraft-" + version + ".jar";
         try {
@@ -60,7 +62,7 @@ public class DownloadThread extends Thread {
 
         int downloadSize = downloadFile(url, file, () -> {
             try {
-                Files.write(home.resolve("version.txt"), version.getBytes(), StandardOpenOption.CREATE_NEW);
+                Files.write(home.resolve(Panel.VERSION_FILENAME), version.getBytes(), StandardOpenOption.CREATE_NEW);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,6 @@
 package fr.uhcraft.launcher.bootstrap;
 
 import javax.swing.*;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,9 +24,5 @@ public class Bootstrap extends JFrame {
 
     public void run(Runnable runnable) {
         service.submit(runnable);
-    }
-
-    public <V> void run(Callable<V> callable) {
-        service.submit(callable);
     }
 }

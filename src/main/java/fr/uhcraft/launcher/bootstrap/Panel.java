@@ -1,8 +1,6 @@
 package fr.uhcraft.launcher.bootstrap;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +19,8 @@ public class Panel extends JPanel {
     private final JProgressBar progressBar;
 
     private static final String VERSION_URL = "http://res01.uhcraft.fr/uhcraft/update/version.txt";
+    public static final String VERSION_FILENAME = "bootstrap_version.txt";
+
 
     private static final String DOWNLOAD_FAILED = "Impossible de vérifier la version, vérifiez votre connexion internet !";
     private static final String DOWNLOAD_IN_PROGRESS = "Téléchargement du launcher en cours...";
@@ -71,7 +71,7 @@ public class Panel extends JPanel {
     }
 
     private String getLocalVersion() {
-        Path home = Paths.get(System.getProperty("user.home") + "/.UHCraft").resolve("version.txt");
+        Path home = Paths.get(System.getProperty("user.home") + "/.UHCraft").resolve(VERSION_FILENAME);
         if (!Files.exists(home)) return "";
         try (BufferedReader reader = Files.newBufferedReader(home)) {
             return reader.readLine();
@@ -108,7 +108,7 @@ public class Panel extends JPanel {
 
     private void startLauncher(Path path) {
         try {
-            Process proc = Runtime.getRuntime().exec("java -jar " + path.toAbsolutePath().toString());
+            Runtime.getRuntime().exec("java -jar " + path.toAbsolutePath().toString());
             System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();
