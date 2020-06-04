@@ -33,7 +33,7 @@ public class Panel extends JPanel {
         add(progressBar = new JProgressBar(0, 100));
 
         progressBar.setOrientation(SwingConstants.HORIZONTAL);
-        progressBar.setValue(50);
+        progressBar.setValue(0);
 
         checkVersion();
     }
@@ -58,6 +58,7 @@ public class Panel extends JPanel {
 
             label.setText(String.format(VERSION_FOUND, version));
             if (version.equals(getLocalVersion())) {
+                progressBar.setValue(100);
                 Path launcher = Paths.get(System.getProperty("user.home") + "/.UHCraft").resolve("UHCraft-" + version + ".jar");
                 startLauncher(launcher);
             } else {

@@ -66,7 +66,7 @@ public class DownloadThread extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            progressBar.setValue(100);
             end.set(true);
             callback.complete(file);
         });
